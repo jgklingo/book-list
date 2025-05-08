@@ -12,5 +12,5 @@
             "email": "jgklingo@byu.edu"
         }
     ],
-    "require": {}
+    "require": {"ext-pdo": "*"}
 }
