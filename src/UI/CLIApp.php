@@ -15,6 +15,7 @@ class CLIApp {
     2. Find book by title
     3. Add new book
     4. Update book
+    5. Get database JSON
 ";
 
     public function __construct() {
@@ -55,6 +56,12 @@ class CLIApp {
                 case "4": {
                     $book = $this->getBook();
                     $this->bookDao->updateBook($book);
+                    break;
+                }
+                case "5": {
+                    $arr = $this->bookDao->getBooks();
+                    echo json_encode($arr, JSON_PRETTY_PRINT);
+                    echo "\n";
                     break;
                 }
                 default: {
