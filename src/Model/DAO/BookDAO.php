@@ -12,7 +12,7 @@ class BookDAO
         $this->pdo = $pdo;
     }
     public function getBookByTitle(string $title): ?Book {
-        $sql = 'SELECT * FROM book WHERE title = :title';
+        $sql = 'SELECT * FROM books WHERE title = :title';
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindValue(':title', $title);
         $stmt->execute();
@@ -33,5 +33,21 @@ class BookDAO
             $books[] = new Book($row['Title'], $row['TotalPages'], $row['PagesRead']);
         }
         return $books;
+    }
+    public function insertBook(Book $book): void {
+        $sql = 'INSERT INTO books VALUES (:title, :totalPages, :pagesRead)';
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':title', $book->title);
+        $stmt->bindValue(':totalPages', $book->totalPages);
+        $stmt->bindValue(':pagesRead', $book->pagesRead);
+        $stmt->execute();
+    }
+    public function updateBook(Book $book): void {
+        $sql = 'UPDATE books SET TotalPages = :totalPages, PagesRead = :pagesRead WHERE Title = :title';
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':title', $book->title);
+        $stmt->bindValue(':totalPages', $book->totalPages);
+        $stmt->bindValue(':pagesRead', $book->pagesRead);
+        $stmt->execute();
     }
 }
